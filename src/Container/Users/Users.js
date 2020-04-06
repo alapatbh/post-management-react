@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import User from "../../Component/User/User";
+import "./Users.css";
 
 class Users extends Component {
   state = {
@@ -16,15 +17,24 @@ class Users extends Component {
   }
 
   render() {
-    console.log(this.state.users);
-    const users = (
-      <div>
-        {this.state.users.map((int, index) => {
-          return <User key={index} userId={int} />;
-        })}
-      </div>
-    );
-    return <div>{users}</div>;
+    let users = <div>Loading...</div>;
+    if (this.state.users.length !== 0) {
+      users = (
+        <div>
+          {this.state.users.map((int, index) => {
+            return (
+              <User
+                key={index}
+                userId={int}
+                clickedUser={(userId) => this.props.clickedUser(userId)}
+              />
+            );
+          })}
+        </div>
+      );
+    }
+    //console.log(users);
+    return <div className="users">{users}</div>;
   }
 }
 
